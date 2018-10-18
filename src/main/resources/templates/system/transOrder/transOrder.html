@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	
+	<div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 select-info">
+				<form id="role-form">
+					<div class="select-list">
+						<ul>
+							<li>
+								转账订单：<input type="text" name="transOrderId"/>
+							</li>
+							<li>
+								渠道ID：<input type="text" name="channelId"/>
+							</li>
+							<li>
+								商户ID：<input type="text" name="mchId"/>
+							</li>
+							<li>
+								转账结果：<select name="result" th:with="type=${@dict.getType('system_transOrder_result')}">
+								<option value="">所有</option>
+								<option th:each="e : ${type}" th:text="${e['dictLabel']}" th:value="${e['dictValue']}"></option>
+							</select>
+							</li>
+							<li>
+								转账状态：<select name="status" th:with="type=${@dict.getType('system_transOrder_state')}">
+									<option value="">所有</option>
+									<option th:each="e : ${type}" th:text="${e['dictLabel']}" th:value="${e['dictValue']}"></option>
+								</select>
+							</li>
+							<li class="time">
+								<label>创建时间： </label>
+								<input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginTime]"/>
+								<span>-</span>
+								<input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endTime]"/>
+							</li>
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+		
+			<div class="btn-group hidden-xs" id="toolbar" role="group">
+
+	        </div>
+	        
+	        <div class="col-sm-12 select-info table-striped">
+			    <table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script th:inline="javascript">
+		var editFlag = [[${@permission.hasPermi('system:role:edit')}]];
+		var removeFlag = [[${@permission.hasPermi('system:role:remove')}]];
+		var datas = [[${@dict.getType('system_transOrder_state')}]];
+		var ty = [[${@dict.getType('system_transOrder_result')}]];
+		var prefix = ctx + "system/transOrder"
+
+		$(function() {
+		    var options = {
+		        url: prefix + "/list",
+		        createUrl: prefix + "/add",
+		        updateUrl: prefix + "/edit/{id}",
+                viewUrl:   prefix + "/view/{id}",
+		        removeUrl: prefix + "/deleMchInfo",
+                removesUrl: prefix + "/deleMchInfo",
+		        exportUrl: prefix + "/export",
+		        modalName: "商户",
+		        search: false,
+		        showExport: false,
+		        columns: [
+                {
+                    field: 'transOrderId',
+                    title: '转账订单',
+                    sortable: true
+                },
+		        {
+		            field: 'mchId',
+		            title: '商户ID',
+		            sortable: true,
+		        },
+                {
+                    field: 'channelId',
+                    title: '渠道ID',
+                    sortable: true,
+                },
+                {
+                    field: 'amount',
+                    title: '金额(元)',
+                    sortable: true,
+                },
+		        {
+		            field: 'status',
+		            title: '转账状态',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	return $.table.selectDictLabel(datas, value);
+		            }
+		        },
+                {
+                    field: 'result',
+                    title: '转账结果',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        return $.table.selectDictLabel(ty, value);
+                    }
+                },
+		        {
+		            field: 'createTime',
+		            title: '创建时间',
+		            sortable: true
+		        },
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		                var actions = [];
+		                actions.push('<a class="btn btn-danger btn-xs ' + editFlag + '" href="#" onclick="$.operate.view(\'' + row.transOrderId + '\')"><i class="fa fa-search"></i>查看</a>');
+		                return actions.join('');
+		            }
+		        }]
+		    };
+		    $.table.init(options);
+		});
+	</script>
+</body>
+</html>

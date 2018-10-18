@@ -367,11 +367,20 @@
             },
             // 删除信息
             remove: function(id) {
-            	$.modal.confirm("确定删除该条" + $.table._option.modalName + "信息吗？", function() {
+            	$.modal.confirm("确定停用该" + $.table._option.modalName + "信息吗？", function() {
 	            	var url = $.common.isEmpty(id) ? $.table._option.removeUrl : $.table._option.removeUrl.replace("{id}", id);
 	            	var data = { "ids": id };
 	            	$.operate.submit(url, "post", "json", data);
             	});
+            },
+
+            // 启用信息
+            removes: function(id) {
+                $.modal.confirm("确定启用该" + $.table._option.modalName + "信息吗？", function() {
+                    var url = $.common.isEmpty(id) ? $.table._option.removesUrl : $.table._option.removeUrl.replace("{id}", id);
+                    var data = { "ids": id };
+                    $.operate.submit(url, "post", "json", data);
+                });
             },
             // 批量删除信息
             batRemove: function() {
@@ -386,6 +395,19 @@
         			$.operate.submit(url, "post", "json", data);
         		});
             },
+            // 批量删除信息
+            removelist: function() {
+                var rows = $.common.isEmpty($.table._option.id) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.id);
+                if (rows.length == 0) {
+                    $.modal.alertWarning("请至少选择一条记录");
+                    return;
+                }
+                $.modal.confirm("确认要删除选中的" + rows.length + "条数据吗?", function() {
+                    var url = $.table._option.rm;
+                    var data = { "ids": rows.join() };
+                    $.operate.submit(url, "post", "json", data);
+                });
+            },
             // 添加信息
             add: function(id) {
             	var url = $.common.isEmpty(id) ? $.table._option.createUrl : $.table._option.createUrl.replace("{id}", id);
@@ -395,6 +417,11 @@
             edit: function(id) {
             	var url = $.table._option.updateUrl.replace("{id}", id);
             	$.modal.open("修改" + $.table._option.modalName, url);
+            },
+            // 修改信息
+            view: function(id) {
+                var url = $.table._option.viewUrl.replace("{id}", id);
+                $.modal.open("查看" + $.table._option.modalName, url);
             },
             // 添加信息 全屏
             addFull: function(id) {

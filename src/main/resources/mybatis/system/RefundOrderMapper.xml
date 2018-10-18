@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.system.order.mapper.RefundOrderMapper">
+  <resultMap id="BaseResultMap" type="com.ruoyi.project.system.order.domain.RefundOrder">
+    <id column="RefundOrderId" jdbcType="VARCHAR" property="refundOrderId" />
+    <result column="PayOrderId" jdbcType="VARCHAR" property="payOrderId" />
+    <result column="ChannelPayOrderNo" jdbcType="VARCHAR" property="channelPayOrderNo" />
+    <result column="MchId" jdbcType="VARCHAR" property="mchId" />
+    <result column="MchRefundNo" jdbcType="VARCHAR" property="mchRefundNo" />
+    <result column="ChannelId" jdbcType="VARCHAR" property="channelId" />
+    <result column="PayAmount" jdbcType="BIGINT" property="payAmount" />
+    <result column="RefundAmount" jdbcType="BIGINT" property="refundAmount" />
+    <result column="Currency" jdbcType="VARCHAR" property="currency" />
+    <result column="Status" jdbcType="TINYINT" property="status" />
+    <result column="Result" jdbcType="TINYINT" property="result" />
+    <result column="ClientIp" jdbcType="VARCHAR" property="clientIp" />
+    <result column="Device" jdbcType="VARCHAR" property="device" />
+    <result column="RemarkInfo" jdbcType="VARCHAR" property="remarkInfo" />
+    <result column="ChannelUser" jdbcType="VARCHAR" property="channelUser" />
+    <result column="UserName" jdbcType="VARCHAR" property="userName" />
+    <result column="ChannelMchId" jdbcType="VARCHAR" property="channelMchId" />
+    <result column="ChannelOrderNo" jdbcType="VARCHAR" property="channelOrderNo" />
+    <result column="ChannelErrCode" jdbcType="VARCHAR" property="channelErrCode" />
+    <result column="ChannelErrMsg" jdbcType="VARCHAR" property="channelErrMsg" />
+    <result column="Extra" jdbcType="VARCHAR" property="extra" />
+    <result column="NotifyUrl" jdbcType="VARCHAR" property="notifyUrl" />
+    <result column="Param1" jdbcType="VARCHAR" property="param1" />
+    <result column="Param2" jdbcType="VARCHAR" property="param2" />
+    <result column="ExpireTime" jdbcType="TIMESTAMP" property="expireTime" />
+    <result column="RefundSuccTime" jdbcType="TIMESTAMP" property="refundSuccTime" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    RefundOrderId, PayOrderId, ChannelPayOrderNo, MchId, MchRefundNo, ChannelId,TRUNCATE(PayAmount/100,2) as PayAmount,
+    TRUNCATE(RefundAmount/100,2) as RefundAmount, Currency, Status, Result, ClientIp, Device, RemarkInfo, ChannelUser,
+    UserName, ChannelMchId, ChannelOrderNo, ChannelErrCode, ChannelErrMsg, Extra, NotifyUrl, 
+    Param1, Param2, ExpireTime, RefundSuccTime, CreateTime, UpdateTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_refund_order
+    where RefundOrderId = #{refundorderid,jdbcType=VARCHAR}
+  </select>
+  <select id="list" parameterType="RefundOrder" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_refund_order
+        where 1 = 1
+        <if test="status != null and status != ''">
+          and  Status = #{status}
+        </if>
+        <if test="result != null and result != ''">
+          and  Result = #{result}
+        </if>
+        <if test="refundOrderId != null and refundOrderId != ''">
+          and  RefundOrderId = #{refundOrderId}
+        </if>
+        <if test="mchId != null and mchId != ''">
+          and  MchId = #{mchId}
+        </if>
+        <if test="params != null and params.beginTime != ''"><!-- 开始时间检索 -->
+          and date_format(CreateTime,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+        </if>
+        <if test="params != null and params.endTime != ''"><!-- 结束时间检索 -->
+          and date_format(CreateTime,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+        </if>
+
+  </select>
+
+  <select id="listRefundAmount" resultMap="BaseResultMap">
+   SELECT IFNULL(SUM(TRUNCATE(RefundAmount/100,2)),'0') AS RefundAmount , DATE_FORMAT(UpdateTime , '%Y年%m月') AS timeList  FROM t_refund_order  GROUP BY timeList ORDER BY timeList  DESC  LIMIT 12
+  </select>
+</mapper>

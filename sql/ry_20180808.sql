@@ -1,37 +1,7 @@
 -- ----------------------------
 -- 1、部门表
 -- ----------------------------
-drop table if exists sys_dept;
-create table sys_dept (
-  dept_id 			int(11) 		not null auto_increment    comment '部门id',
-  parent_id 		int(11) 		default 0 			       comment '父部门id',
-  ancestors 		varchar(50)     default '' 			       comment '祖级列表',
-  dept_name 		varchar(30) 	default '' 				   comment '部门名称',
-  order_num 		int(4) 			default 0 			       comment '显示顺序',
-  leader            varchar(20)     default ''                 comment '负责人',
-  phone             varchar(11)     default ''                 comment '联系电话',
-  email             varchar(50)     default ''                 comment '邮箱',
-  status 			char(1) 		default '0' 			   comment '部门状态（0正常 1停用）',
-  create_by         varchar(64)     default ''                 comment '创建者',
-  create_time 	    datetime                                   comment '创建时间',
-  update_by         varchar(64)     default ''                 comment '更新者',
-  update_time       datetime                                   comment '更新时间',
-  primary key (dept_id)
-) engine=innodb auto_increment=200 default charset=utf8 comment = '部门表';
 
--- ----------------------------
--- 初始化-部门表数据
--- ----------------------------
-insert into sys_dept values(100,  0,   '0',         '若依集团', 0, '若依', '15888888888', 'ry@qq.com', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00');
-insert into sys_dept values(101,  100, '0,100',     '研发部门', 1, '若依', '15888888888', 'ry@qq.com', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00');
-insert into sys_dept values(102,  100, '0,100',     '市场部门', 2, '若依', '15888888888', 'ry@qq.com', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00');
-insert into sys_dept values(103,  100, '0,100',     '测试部门', 3, '若依', '15888888888', 'ry@qq.com', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00');
-insert into sys_dept values(104,  100, '0,100',     '财务部门', 4, '若依', '15888888888', 'ry@qq.com', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00');
-insert into sys_dept values(105,  100, '0,100',     '运维部门', 5, '若依', '15888888888', 'ry@qq.com', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00');
-insert into sys_dept values(106,  101, '0,100,101', '研发一部', 1, '若依', '15888888888', 'ry@qq.com', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00');
-insert into sys_dept values(107,  101, '0,100,101', '研发二部', 2, '若依', '15888888888', 'ry@qq.com', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00');
-insert into sys_dept values(108,  102, '0,100,102', '市场一部', 1, '若依', '15888888888', 'ry@qq.com', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00');
-insert into sys_dept values(109,  102, '0,100,102', '市场二部', 2, '若依', '15888888888', 'ry@qq.com', '1', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00');
 
 
 -- ----------------------------

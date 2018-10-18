@@ -9,6 +9,8 @@ import com.ruoyi.project.system.notice.domain.Notice;
 import com.ruoyi.project.system.notice.service.INoticeService;
 import com.ruoyi.common.support.Convert;
 
+import javax.annotation.Resource;
+
 /**
  * 公告 服务层实现
  * 
@@ -18,7 +20,7 @@ import com.ruoyi.common.support.Convert;
 @Service
 public class NoticeServiceImpl implements INoticeService
 {
-    @Autowired
+    @Resource
     private NoticeMapper noticeMapper;
 
     /**
@@ -54,6 +56,7 @@ public class NoticeServiceImpl implements INoticeService
     @Override
     public int insertNotice(Notice notice)
     {
+        notice.setNoticeContent(notice.getNoticeContent().replaceAll("\\<p>|</p>",""));
         notice.setCreateBy(ShiroUtils.getLoginName());
         return noticeMapper.insertNotice(notice);
     }
@@ -81,6 +84,16 @@ public class NoticeServiceImpl implements INoticeService
     public int deleteNoticeByIds(String ids)
     {
         return noticeMapper.deleteNoticeByIds(Convert.toStrArray(ids));
+    }
+
+    @Override
+    public List<Notice> count() {
+        return noticeMapper.count();
+    }
+
+    @Override
+    public int updateState(Notice notice) {
+        return noticeMapper.updateState(notice);
     }
 
 }

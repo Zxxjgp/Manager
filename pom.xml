@@ -3,13 +3,13 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.ruoyi</groupId>
-	<artifactId>RuoYi</artifactId>
+	<groupId>com.hsjy</groupId>
+	<artifactId>Manager</artifactId>
 	<version>2.3.0</version>
 	<packaging>jar</packaging>
 
-	<name>RuoYi</name>
-	<description>若依管理系统</description>
+	<name>Manager</name>
+	<description>华生基因管理系统</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -41,6 +41,10 @@
 	<dependencies>
 
 		<!-- SpringBoot 核心包 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -247,6 +251,18 @@
 			<version>3.9</version>
 		</dependency>
 
+		<!--strat redis-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.9.0</version>
+		</dependency>
+		 <!--end redis-->
 	</dependencies>
 
 	<build>

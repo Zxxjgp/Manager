@@ -20,7 +20,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <sql id="selectNoticeVo">
         select notice_id, notice_title, notice_type, notice_content, status, create_by, create_time, update_by, update_time, remark from sys_notice
     </sql>
-    
+
+    <select id="count" resultMap="NoticeResult">
+        <include refid="selectNoticeVo"/>
+        where status = '0'
+    </select>
+
     <select id="selectNoticeById" parameterType="Long" resultMap="NoticeResult">
         <include refid="selectNoticeVo"/>
         where notice_id = #{noticeId}
@@ -28,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="selectNoticeList" parameterType="Notice" resultMap="NoticeResult">
         <include refid="selectNoticeVo"/>
-        <where>
+        where 1 = 1
 			<if test="noticeTitle != null and noticeTitle != ''">
 				AND notice_title like concat('%', #{noticeTitle}, '%')
 			</if>
@@ -38,7 +43,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="createBy != null and createBy != ''">
 				AND create_by like concat('%', #{createBy}, '%')
 			</if>
-		</where>
     </select>
     
     <insert id="insertNotice" parameterType="Notice">
@@ -60,7 +64,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			sysdate()
 		)
     </insert>
-	 
+	 <update id="updateState" parameterType="Notice">
+         update sys_notice set status = #{status} where where notice_id = #{noticeId}
+     </update>
     <update id="updateNotice" parameterType="Notice">
         update sys_notice 
         <set>
@@ -80,5 +86,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{noticeId}
         </foreach>
     </delete>
-    
+
 </mapper>

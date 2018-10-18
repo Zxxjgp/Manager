@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.system.order.mapper.PayChannelMapper">
+  <resultMap id="BaseResultMap" type="com.ruoyi.project.system.order.domain.PayChannel">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ChannelId" jdbcType="VARCHAR" property="channelId" />
+    <result column="ChannelName" jdbcType="VARCHAR" property="channelName" />
+    <result column="ChannelMchId" jdbcType="VARCHAR" property="channelMchId" />
+    <result column="MchId" jdbcType="VARCHAR" property="mchId" />
+    <result column="State" jdbcType="TINYINT" property="state" />
+    <result column="Param" jdbcType="VARCHAR" property="param" />
+    <result column="Remark" jdbcType="VARCHAR" property="remark" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, ChannelId, ChannelName, ChannelMchId, MchId, State, Param, Remark, CreateTime, 
+    UpdateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_pay_channel
+    where id = #{id}
+  </select>
+
+  <insert id="insertSelective" parameterType="PayChannel">
+    insert into t_pay_channel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="channelId != null">
+        ChannelId,
+      </if>
+      <if test="channelName != null">
+        ChannelName,
+      </if>
+      <if test="channelMchId != null">
+        ChannelMchId,
+      </if>
+      <if test="mchId != null">
+        MchId,
+      </if>
+      <if test="state != null">
+        State,
+      </if>
+      <if test="param != null">
+        Param,
+      </if>
+      <if test="remark != null">
+        Remark,
+      </if>
+      <if test="createTime != null">
+        CreateTime,
+      </if>
+      <if test="updateTime != null">
+        UpdateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="channelId != null">
+        #{channelId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelName != null">
+        #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelMchId != null">
+        #{channelMchId,jdbcType=VARCHAR},
+      </if>
+      <if test="mchId != null">
+        #{mchId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="param != null">
+        #{param,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="PayChannel">
+    update t_pay_channel
+    <set>
+      <if test="channelId != null">
+        ChannelId = #{channelId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelName != null">
+        ChannelName = #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelMchId != null">
+        ChannelMchId = #{channelMchId,jdbcType=VARCHAR},
+      </if>
+      <if test="mchId != null">
+        MchId = #{mchId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        State = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="param != null">
+        Param = #{param,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CreateTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="findPayChannelList" parameterType="PayChannel" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_pay_channel
+    where 1 = 1
+    <if test="channelId != null and channelId != ''">
+      and ChannelId = #{channelId}
+    </if>
+    <if test="mchId != null and mchId != ''">
+      and  MchId = #{mchId}
+    </if>
+    <if test="state != null and state != ''">
+      and  State = #{state}
+    </if>
+    <if test="params != null and params.beginTime != ''"><!-- 开始时间检索 -->
+      AND date_format(CreateTime,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+    </if>
+    <if test="params != null and params.endTime != ''"><!-- 结束时间检索 -->
+      AND date_format(CreateTime,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+    </if>
+    ORDER BY CreateTime DESC
+  </select>
+
+  <update id="updatePayChannelState" parameterType="PayChannel">
+    update t_pay_channel set State = #{state} , UpdateTime = sysdate() where id = #{id}
+  </update>
+
+
+  <delete id="deleteChannel" parameterType="Integer">
+    delete from t_pay_channel where id in
+    <foreach collection="array" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+
+</mapper>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.system.order.mapper.MchInfoMapper">
+  <resultMap id="BaseResultMap" type="MchInfo">
+    <id column="MchId" jdbcType="VARCHAR" property="mchid" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="Type" jdbcType="VARCHAR" property="type" />
+    <result column="ReqKey" jdbcType="VARCHAR" property="reqkey" />
+    <result column="ResKey" jdbcType="VARCHAR" property="reskey" />
+    <result column="State" jdbcType="TINYINT" property="state" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    MchId, Name, Type, ReqKey, ResKey, State, CreateTime, UpdateTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_mch_info
+    where MchId = #{mchid,jdbcType=VARCHAR}
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="MchInfo">
+    update t_mch_info set State = #{state}, UpdateTime = sysdate()
+    where MchId = #{mchid}
+  </update>
+  <insert id="insertSelective" parameterType="MchInfo">
+    insert into t_mch_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mchid != null">
+        MchId,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="type != null">
+        Type,
+      </if>
+      <if test="reqkey != null">
+        ReqKey,
+      </if>
+      <if test="reskey != null">
+        ResKey,
+      </if>
+      <if test="state != null">
+        State,
+      </if>
+      <if test="createTime != null">
+        CreateTime,
+      </if>
+      <if test="updateTime != null">
+        UpdateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mchid != null">
+        #{mchid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="reqkey != null">
+        #{reqkey,jdbcType=VARCHAR},
+      </if>
+      <if test="reskey != null">
+        #{reskey,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="MchInfo">
+    update t_mch_info
+    <set>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        Type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="reqkey != null">
+        ReqKey = #{reqkey,jdbcType=VARCHAR},
+      </if>
+      <if test="reskey != null">
+        ResKey = #{reskey,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        State = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        CreateTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where MchId = #{mchid,jdbcType=VARCHAR}
+  </update>
+
+  <select id="mchInfoList" parameterType="MchInfo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_mch_info
+    where 1 = 1
+    <if test="mchid != null and mchid != ''">
+      and MchId = #{mchid}
+    </if>
+
+    <if test="name != null and name != ''">
+      and Name = #{name}
+    </if>
+    <if test="state != null and state != ''">
+      and State = #{state}
+    </if>
+    <if test="params != null and params.beginTime != ''"><!-- 开始时间检索 -->
+      AND date_format(CreateTime,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+    </if>
+    <if test="params != null and params.endTime != ''"><!-- 结束时间检索 -->
+      AND date_format(CreateTime,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+    </if>
+  </select>
+
+  <select id="findId" resultType="String">
+		SELECT MchId FROM t_mch_info CreateTime ORDER BY CreateTime DESC LIMIT 1
+  </select>
+  <select id="checkMchInfoNameUnique" parameterType="String" resultType="int">
+		select count(1) from t_mch_info where Name=#{name}
+	</select>
+  <select id="selectMchInfo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_mch_info
+    where State = '1'
+  </select>
+
+  <delete id="deleteMchInfo" parameterType="Integer">
+    delete from t_mch_info where MchId in
+    <foreach collection="array" item="mchId" open="(" separator="," close=")">
+      #{mchId}
+    </foreach>
+  </delete>
+</mapper>

@@ -12,10 +12,10 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								<label>任务名称：</label><input type="text" name="jobName"/>
+								<label>任务名称：</label><label type="text" name="jobName"/>
 							</li>
 							<li>
-								<label>方法名称：</label><input type="text" name="methodName"/>
+								<label>方法名称：</label><label type="text" name="methodName"/>
 							</li>
 							<li>
 								<label>执行状态：</label><select name="status" th:with="type=${@dict.getType('sys_common_status')}">
@@ -25,7 +25,7 @@
 							</li>
 							<li class="time">
 								<label>执行时间： </label>
-								<input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginTime]"/>
+								<label type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginTime]"/>
 								<span>-</span>
 								<input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endTime]"/>
 							</li>

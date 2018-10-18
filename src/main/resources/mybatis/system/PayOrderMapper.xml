@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.system.order.mapper.PayOrderMapper">
+  <resultMap id="BaseResultMap" type="com.ruoyi.project.system.order.domain.PayOrder">
+    <id column="PayOrderId" jdbcType="VARCHAR" property="payOrderId" />
+    <result column="MchOrderNo" jdbcType="VARCHAR" property="mchOrderNo" />
+    <result column="ChannelId" jdbcType="VARCHAR" property="channelId" />
+    <result column="SubChannelType" jdbcType="VARCHAR" property="subChannelType" />
+    <result column="Amount" jdbcType="BIGINT" property="amount" />
+    <result column="Currency" jdbcType="VARCHAR" property="currency" />
+    <result column="Status" jdbcType="TINYINT" property="status" />
+    <result column="ClientIp" jdbcType="VARCHAR" property="clientIp" />
+    <result column="Device" jdbcType="VARCHAR" property="device" />
+    <result column="Subject" jdbcType="VARCHAR" property="subject" />
+    <result column="Body" jdbcType="VARCHAR" property="body" />
+    <result column="Extra" jdbcType="VARCHAR" property="extra" />
+    <result column="ChannelMchId" jdbcType="VARCHAR" property="channelMchId" />
+    <result column="ChannelOrderNo" jdbcType="VARCHAR" property="channelOrderNo" />
+    <result column="ErrCode" jdbcType="VARCHAR" property="errCode" />
+    <result column="ErrMsg" jdbcType="VARCHAR" property="errMsg" />
+    <result column="Param1" jdbcType="VARCHAR" property="param1" />
+    <result column="Param2" jdbcType="VARCHAR" property="param2" />
+    <result column="NotifyUrl" jdbcType="VARCHAR" property="notifyUrl" />
+    <result column="NotifyCount" jdbcType="TINYINT" property="notifyCount" />
+    <result column="LastNotifyTime" jdbcType="BIGINT" property="lastNotifyTime" />
+    <result column="ExpireTime" jdbcType="BIGINT" property="expireTime" />
+    <result column="PaySuccTime" jdbcType="BIGINT" property="paysuccTime" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="Remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    PayOrderId, MchId, MchOrderNo, ChannelId, SubChannelType, TRUNCATE(Amount/100,2) as Amount, Currency, Status,
+    ClientIp, Device, Subject, Body, Extra, ChannelMchId, ChannelOrderNo, ErrCode, ErrMsg, 
+    Param1, Param2, NotifyUrl, NotifyCount, LastNotifyTime, ExpireTime, PaySuccTime, 
+    CreateTime, UpdateTime
+  </sql>
+  <select id="findByPayOrder" parameterType="PayOrder" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_pay_order
+    where 1 = 1
+    <if test="payOrderId != null and payOrderId != ''">
+      and PayOrderId = #{payOrderId}
+    </if>
+
+    <if test="mchId != null and mchId != ''">
+      and MchId = #{mchId}
+    </if>
+    <if test="status != null and status != ''">
+      and Status = #{status}
+    </if>
+    <if test="mchOrderNo != null and mchOrderNo != ''">
+      and MchOrderNo = #{mchOrderNo}
+    </if>
+
+    <if test="channelId != null and channelId != ''">
+      and ChannelId = #{channelId}
+    </if>
+    <if test="params != null and params.beginTime != ''"><!-- 开始时间检索 -->
+      AND date_format(CreateTime,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+    </if>
+    <if test="params != null and params.endTime != ''"><!-- 结束时间检索 -->
+      AND date_format(CreateTime,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+    </if>
+    ORDER BY CreateTime DESC
+  </select>
+  <select id="findDetailPayOrder" parameterType="String" resultType="PayOrder">
+    select
+      tpo.PayOrderId,
+      tpo.MchId,
+      tpo.MchOrderNo,
+      tpo.ChannelId,
+      tpo.SubChannelType,
+      TRUNCATE(Amount / 100, 2) AS Amount,
+      tpo.Currency,
+      tpo.STATUS,
+      tpo.ClientIp,
+      tpo.Device,
+      tpo.SUBJECT,
+      tpo.Body,
+      tpo.ChannelMchId,
+      tpo.ChannelOrderNo,
+      tpo.CreateTime,
+      tpc.Remark AS Remark
+    from t_pay_order tpo
+    left join t_pay_channel tpc on tpo.ChannelId = tpc.ChannelId
+    where PayOrderId = #{payOrderId}
+  </select>
+
+  <select id="getListEChartsDate" resultMap="BaseResultMap">
+        SELECT SUM(TRUNCATE(Amount/100,2)) AS Amount , DATE_FORMAT(UpdateTime , '%Y年%m月') AS timeList  FROM t_pay_order GROUP BY timeList ORDER BY timeList  DESC LIMIT 12
+  </select>
+
+  <select id="orderTotal" resultType="PayOrder">
+    SELECT  COUNT(1) AS orderCount, SUM(TRUNCATE(Amount/100,2)) AS Amount FROM t_pay_order
+  </select>
+
+  <select id="todayOrderTotal" resultType="PayOrder">
+    SELECT  COUNT(1) AS todayorderCount, SUM(TRUNCATE(Amount/100,2)) AS Amount FROM t_pay_order WHERE DATEDIFF(CreateTime,NOW())= 0
+  </select>
+
+  <select id="payAbnormalOrder" resultType="PayOrder">
+    SELECT COUNT(PayOrderId) AS counts FROM t_pay_order WHERE PERIOD_DIFF( DATE_FORMAT( NOW( ) , '%y%m' ) , DATE_FORMAT( CreateTime, '%y%m' ) ) =1
+  </select>
+</mapper>

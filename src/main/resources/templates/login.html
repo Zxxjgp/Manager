@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-    <title>若依管理系统 - 登录</title>
-    <meta name="keywords" content="若依管理系统">
+    <title>华生基因管理系统 - 登录</title>
+    <meta name="keywords" content="华生基因管理系统">
     <meta name="description" content="RuoYi">
     <link href="../static/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" rel="stylesheet"/>
     <link href="../static/css/font-awesome.css" th:href="@{css/font-awesome.css}" rel="stylesheet"/>
@@ -30,26 +31,23 @@
             <div class="col-sm-7">
                 <div class="signin-info">
                     <div class="logopanel m-b">
-                        <h1><img alt="[ 若依 ]" src="../static/ruoyi.png" th:src="@{/ruoyi.png}"></h1>
+                        <h1><img alt="[ 江苏华生基因 ]" src="../static/lo.png" style="width:50px;height: auto;max-height: 50px;max-width: 50px; min-width:50px ;overflow:hidden;" th:src="@{/lo.png}"></h1>
                     </div>
                     <div class="m-b"></div>
-                    <h4>欢迎使用 <strong>若依 后台管理系统</strong></h4>
+                    <h4>欢迎使用 <strong>华生基因收款运营平台</strong></h4>
                     <ul class="m-b">
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> SpringBoot</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> Mybatis</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> Shiro</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> Thymeleaf</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> Bootstrap</li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 牢记使命</li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 砥砺前行</li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 规范高效</li>
                     </ul>
-                    <strong>还没有账号？ <a href="#">立即注册&raquo;</a></strong>
                 </div>
             </div>
             <div class="col-sm-5">
                 <form id="signupForm">
                     <h4 class="no-margins">登录：</h4>
-                    <p class="m-t-md">你若不离不弃，我必生死相依</p>
+                    <p class="m-t-md">江苏华生基因数据科技股份有限公司</p>
                     <input type="text"     name="username" class="form-control uname"     placeholder="用户名" value="admin"    />
-                    <input type="password" name="password" class="form-control pword m-b" placeholder="密码"   value="admin123" />
+                    <input type="password" name="password" class="form-control pword m-b" placeholder="密码"   value="123456" />
 					<div class="row" th:if="${captchaEbabled==true}">
 						<div class="col-xs-6">
 						    <input type="text" name="validateCode" class="form-control code" placeholder="验证码" maxlength="5">
@@ -67,7 +65,7 @@
         </div>
         <div class="signup-footer">
             <div class="pull-left">
-                &copy; 2018 All Rights Reserved. RuoYi
+                &copy; 2018 All Rights Reserved. Hsjy
             </div>
         </div>
     </div>

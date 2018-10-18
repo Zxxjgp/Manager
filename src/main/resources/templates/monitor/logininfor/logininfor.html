@@ -12,10 +12,10 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								<label>登录地址：</label><input type="text" name="ipaddr"/>
+								<label>登录地址：</label><label type="text" name="ipaddr"/>
 							</li>
 							<li>
-								<label>登录名称：</label><input type="text" name="loginName"/>
+								<label>登录名称：</label><label type="text" name="loginName"/>
 							</li>
 							<li>
 								<label>登录状态：</label><select name="status" th:with="type=${@dict.getType('sys_common_status')}">
@@ -25,9 +25,9 @@
 							</li>
 							<li class="time">
 								<label>登录时间： </label>
-								<input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginTime]"/>
+								<label type="text" class="time-label" id="startTime" placeholder="开始时间" name="params[beginTime]"/>
 								<span>-</span>
-								<input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endTime]"/>
+								<label type="text" class="time-label" id="endTime" placeholder="结束时间" name="params[endTime]"/>
 							</li>
 							<li>
 								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>

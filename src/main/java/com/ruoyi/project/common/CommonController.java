@@ -1,11 +1,13 @@
 package com.ruoyi.project.common;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.system.ApplicationHome;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,15 +29,18 @@ public class CommonController
         String realFileName = System.currentTimeMillis() + fileName.substring(fileName.indexOf("_") + 1);
         try
         {
+            //开发环境
             String filePath = ResourceUtils.getURL("classpath:").getPath() + "static/file/" + fileName;
-
+           //线上环境
+            String path = getBaseJarPath();
+            path = path.replaceAll("\\\\" ,"/")+fileName;
             response.setCharacterEncoding("utf-8");
             response.setContentType("multipart/form-data");
             response.setHeader("Content-Disposition", "attachment;fileName=" + setFileDownloadHeader(request, realFileName));
-            FileUtils.writeBytes(filePath, response.getOutputStream());
+            FileUtils.writeBytes(path, response.getOutputStream());
             if (delete)
             {
-                FileUtils.deleteFile(filePath);
+                FileUtils.deleteFile(path);
             }
         }
         catch (Exception e)
@@ -44,13 +49,20 @@ public class CommonController
         }
     }
 
+    public String getBaseJarPath(){
+        ApplicationHome home = new ApplicationHome(getClass());
+        File jarFile = home.getSource();
+        String path = jarFile.getParentFile().toString()+"\\"+"file\\";
+        return path;
+    }
+
     public String setFileDownloadHeader(HttpServletRequest request, String fileName) throws UnsupportedEncodingException
     {
         final String agent = request.getHeader("USER-AGENT");
         String filename = fileName;
         if (agent.contains("MSIE"))
         {
-            // IE浏览器
+            // IE浏览器3
             filename = URLEncoder.encode(filename, "utf-8");
             filename = filename.replace("+", " ");
         }

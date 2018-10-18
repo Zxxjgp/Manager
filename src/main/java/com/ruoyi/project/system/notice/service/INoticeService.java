@@ -49,5 +49,13 @@ public interface INoticeService
      * @return 结果
      */
     public int deleteNoticeByIds(String ids);
-
+    /**
+     * 全部通知
+     * @return
+     */
+    List<Notice> count();
+    /**
+     * 更新状态
+     */
+    int updateState(Notice notice);
 }

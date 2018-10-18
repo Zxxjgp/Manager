@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<link href="/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css" th:href="@{/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+	<form class="form-horizontal m" id="form-role-add" th:object="${payChannel}">
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label ">渠道名称：</label>
+			<div class="col-sm-8">
+				<input class="form-control" type="text" name="name" id="name" th:field="*{channelName}" readonly="true"/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label ">渠道ID：</label>
+			<div class="col-sm-8">
+				<input class="form-control" type="text" readonly="true" th:field="*{channelId}"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label ">商户ID：</label>
+			<div class="col-sm-8">
+				<input class="form-control" type="text" name="name" id="name" th:field="*{mchId}" readonly="true"/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label">渠道商户ID:</label>
+			<div class="col-sm-8">
+				<input class="form-control" type="text" name="name" id="name" th:field="*{channelMchId}" readonly="true"/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label">渠道状态:</label>
+			<div class="col-sm-8">
+				<select id="type" class="form-control m-b" th:with="type=${@dict.getType('sys_pay_channel')}" th:placeholder="请选择商户类型" readonly="true">
+
+					<option th:each="dict : ${type}" th:if="${dict['dictValue']} == ${payChannel.state}" th:text="${dict['dictLabel']}" th:value="${dict['dictValue']}"></option>
+
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label">配置参数：</label>
+			<div class="col-sm-8">
+				<textarea class="form-control" style="height: 170px;" type="text" name="param" id="param" th:field="*{param}" readonly="true"/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label">备注信息：</label>
+			<div class="col-sm-8">
+				<textarea class="form-control" type="text" style="height: 180px;" name="remark" id="remark" th:field="*{remark}" readonly="true"></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">创建时间:</label>
+			<div class="col-sm-8">
+				<input class="form-control" type="text" name="name" id="name" th:field="*{createTime}" readonly="true"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">更新时间:</label>
+			<div class="col-sm-8">
+				<input class="form-control" type="text" name="name" id="name" th:field="*{updateTime}" readonly="true"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="form-control-static col-sm-offset-9">
+				<button onclick="$.modal.close()" class="btn btn-danger" type="button">关闭</button>
+			</div>
+		</div>
+	</form>
+</div>
+<div th:include="include::footer"></div>
+<script th:src="@{/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
+<script type="text/javascript">
+    // 树结构初始化加载
+    var setting = {
+        check:{enable:true,nocheckInherit:true,chkboxType:{"Y":"ps","N":"ps"}},
+        view:{selectedMulti:false,nameIsHTML: true},
+        data:{simpleData:{enable:true},key:{title:"title"}},
+        callback:{
+            beforeClick: function (treeId, treeNode, clickFlag) {
+                var menuTrees = $.fn.zTree.getZTreeObj(treeId);
+                menuTrees.checkNode(treeNode, !treeNode.checked, true, true);
+                return false;
+            }
+        }
+    }, menuTrees, loadTree = function(){
+        $.get(ctx + "system/menu/roleMenuTreeData", function(data) {
+            menuTrees = $.fn.zTree.init($("#menuTrees"), setting, data); //.expandAll(true);
+        }, null, null, "正在加载，请稍后...");
+    };loadTree();
+
+    $("#form-role-add").validate({
+        rules:{
+            name:{
+                required:true,
+            },
+            reqkey:{
+                required:true,
+            },
+            reskey:{
+                required:true,
+            }
+        },
+        messages: {
+            "name": {
+                remote: "用户名存在"
+            },
+            "reqkey": {
+                remote: "请输入"
+            }
+        },
+        submitHandler:function(form){
+            add();
+        }
+    });
+    /*
+        function selectCheckeds() {
+            var menuIds = "";
+            var treeNodes = menuTrees.getCheckedNodes(true);
+            for (var i = 0; i < treeNodes.length; i++) {
+                if (0 == i) {
+                    menuIds = treeNodes[i].id;
+                } else {
+                    menuIds += ("," + treeNodes[i].id);
+                }
+            }
+            return menuIds;
+        }*/
+
+    function add() {
+        var name = $("input[name='name']").val();
+        var reqkey = $("input[name='reqkey']").val();
+        var reskey = $("input[name='reskey']").val();
+        var state = $("input[name='state']").is(':checked') == true ? 1 : 0;
+        var type = $("#type option:selected").val();
+        var mchid = $("input[name='mchid']").val();
+        $.ajax({
+            cache : true,
+            type : "POST",
+            url : ctx + "system/mch/editMchInfo",
+            data : {
+                "name": name,
+                "reqkey": reqkey,
+                "reskey": reskey,
+                "state": state,
+                "type": type,
+				"mchid":mchid
+            },
+            async : false,
+            error : function(request) {
+                $.modal.alertError("系统错误");
+            },
+            success : function(data) {
+                $.operate.saveSuccess(data);
+            }
+        });
+    }
+</script>
+</body>
+</html>

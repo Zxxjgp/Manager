@@ -1,5 +1,6 @@
 package com.ruoyi.framework.web.exception;
 
+import com.ruoyi.common.exception.user.PrimaryException;
 import org.apache.shiro.authz.AuthorizationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,10 +64,18 @@ public class DefaultExceptionHandler
     /**
      * 演示模式异常
      */
+    @ExceptionHandler(PrimaryException.class)
+    public AjaxResult primaryException(DemoModeException e)
+    {
+        return AjaxResult.error("渠道的Id存在重复的主键ChannelId,不允许操作");
+    }
+
+    /**
+     * 演示模式异常
+     */
     @ExceptionHandler(DemoModeException.class)
     public AjaxResult demoModeException(DemoModeException e)
     {
         return AjaxResult.error("演示模式，不允许操作");
     }
-
 }

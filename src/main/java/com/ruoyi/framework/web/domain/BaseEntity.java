@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ruoyi.framework.aspectj.lang.annotation.Excel;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * Entity基类
@@ -18,9 +20,12 @@ public class BaseEntity implements Serializable
     private String searchValue;
 
     /** 创建者 */
+
     private String createBy;
 
     /** 创建时间 */
+    @Excel(name = "创建时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
@@ -28,6 +33,7 @@ public class BaseEntity implements Serializable
     private String updateBy;
 
     /** 更新时间 */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 

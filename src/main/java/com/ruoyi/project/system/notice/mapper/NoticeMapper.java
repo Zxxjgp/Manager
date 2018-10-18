@@ -50,4 +50,14 @@ public interface NoticeMapper
      */
     public int deleteNoticeByIds(String[] noticeIds);
 
+    /**
+     * 全部通知
+     * @return
+     */
+    List<Notice> count();
+
+    /**
+     * 更新状态
+     */
+    int updateState(Notice notice);
 }

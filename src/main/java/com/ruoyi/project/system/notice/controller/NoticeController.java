@@ -39,6 +39,11 @@ public class NoticeController extends BaseController
         return prefix + "/notice";
     }
 
+    @GetMapping("list")
+    public String notices()
+    {
+        return prefix + "/list";
+    }
     /**
      * 查询公告列表
      */
@@ -81,6 +86,21 @@ public class NoticeController extends BaseController
     {
         mmap.put("notice", noticeService.selectNoticeById(noticeId));
         return prefix + "/edit";
+    }
+
+    /**
+     * 查看
+     */
+    @GetMapping("/detail/{noticeId}")
+    public String view(@PathVariable("noticeId") Long noticeId, ModelMap mmap)
+    {
+        mmap.put("notice", noticeService.selectNoticeById(noticeId));
+        Notice notice = new Notice();
+        notice.setNoticeId(noticeId);
+        notice.setStatus("1");
+        noticeService.updateNotice(notice);
+
+        return prefix + "/detail";
     }
 
     /**

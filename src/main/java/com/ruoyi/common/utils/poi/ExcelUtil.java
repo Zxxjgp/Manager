@@ -1,9 +1,6 @@
 package com.ruoyi.common.utils.poi;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -30,6 +27,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.util.CellRangeAddressList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.system.ApplicationHome;
 import org.springframework.util.ResourceUtils;
 
 import com.ruoyi.common.utils.StringUtils;
@@ -339,7 +337,9 @@ public class ExcelUtil<T>
         try
         {
             String filename = encodingFilename(sheetName);
-            OutputStream out = new FileOutputStream(getfile() + filename);
+
+            OutputStream out = new FileOutputStream(getBaseJarPath() + filename);
+
             workbook.write(out);
             out.close();
             return AjaxResult.success(filename);
@@ -428,9 +428,30 @@ public class ExcelUtil<T>
         return filename;
     }
 
+    /**
+     * 开发环境
+     * @return
+     * @throws FileNotFoundException
+     */
     public String getfile() throws FileNotFoundException
     {
+        System.out.println(getBaseJarPath());
         return ResourceUtils.getURL("classpath:").getPath() + "static/file/";
+    }
+
+    /**
+     * 线上环境
+     * @return
+     */
+    public String getBaseJarPath(){
+        ApplicationHome home = new ApplicationHome(getClass());
+        File jarFile = home.getSource();
+        String path = jarFile.getParentFile().toString()+"\\"+"file\\";
+        File file = new File(path);
+        if (!file.exists()){
+            file.mkdir();
+        }
+        return path.replaceAll("\\\\","/");
     }
 
 }

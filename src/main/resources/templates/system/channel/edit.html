@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<link href="/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css" th:href="@{/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+	<form class="form-horizontal m" id="form-role-add" th:object="${payChannel}">
+		<input name="userId"  type="hidden"  th:field="*{id}" />
+		<div class="form-group">
+			<label class="col-sm-3 control-label ">商户ID：</label>
+			<div class="col-sm-8">
+				<select id="mchId" class="form-control m-b" th:with="type=${@mchInfoServiceImpl.selectMchInfo()}" th:placeholder="商户ID">
+					<option th:each="dict : ${type}" th:if="${dict['mchid']} == ${payChannel.mchId} " th:text="${dict['mchid']}" th:value="${dict['mchid']}"></option>
+					<option th:each="dict : ${type}" th:text="${dict['mchid']}" th:value="${dict['mchid']}"></option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">渠道名称：</label>
+			<div class="col-sm-8">
+				<select id="channelName" class="form-control m-b" th:with="type=${@dict.getType('system_channel_name')}" th:placeholder="请选择渠道名称">
+					<option th:each="dict : ${type}" th:if="${dict['dictLabel']} == ${payChannel.channelName} " th:text="${dict['dictLabel']}" th:value="${dict['dictLabel']}"></option>
+					<option th:each="dict : ${type}" th:text="${dict['dictLabel']}" th:value="${dict['dictLabel']}"></option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">渠道ID：</label>
+			<div class="col-sm-8">
+				<select id="channelId" class="form-control m-b" th:with="type=${@dict.getType('system_channel_id')}" th:placeholder="请选择渠道ID">
+					<option th:each="dict : ${type}" th:if="${dict['dictLabel']} == ${payChannel.channelId} " th:text="${dict['dictLabel']}" th:value="${dict['dictLabel']}"></option>
+					<option th:each="dict : ${type}" th:text="${dict['dictLabel']}" th:value="${dict['dictLabel']}"></option>
+				</select>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label">渠道商户ID：</label>
+			<div class="col-sm-8">
+				<input class="form-control" type="text" name="channelMchId" id="channelMchId" th:field="*{channelMchId}" >
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">是否使用：</label>
+			<div class="col-sm-8">
+				<div class="onoffswitch">
+					<input type="checkbox" th:checked="${payChannel.state} == '1'? true : false" class="onoffswitch-checkbox" id="state" name="state">
+					<label class="onoffswitch-label" for="state">
+						<span class="onoffswitch-inner"></span>
+						<span class="onoffswitch-switch"></span>
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label">参数：</label>
+			<div class="col-sm-8">
+				<input class="form-control" type="text" name="param" id="param" th:field="*{param}" >
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">备注：</label>
+			<div class="col-sm-8">
+				<input class="form-control" type="text" name="remark" id="remark" th:field="*{remark}" >
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="form-control-static col-sm-offset-9">
+				<button type="submit" class="btn btn-primary">提交</button>
+				<button onclick="$.modal.close()" class="btn btn-danger" type="button">关闭</button>
+			</div>
+		</div>
+	</form>
+</div>
+<div th:include="include::footer"></div>
+<script th:src="@{/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
+<script type="text/javascript">
+    // 树结构初始化加载
+    var setting = {
+        check:{enable:true,nocheckInherit:true,chkboxType:{"Y":"ps","N":"ps"}},
+        view:{selectedMulti:false,nameIsHTML: true},
+        data:{simpleData:{enable:true},key:{title:"title"}},
+        callback:{
+            beforeClick: function (treeId, treeNode, clickFlag) {
+                var menuTrees = $.fn.zTree.getZTreeObj(treeId);
+                menuTrees.checkNode(treeNode, !treeNode.checked, true, true);
+                return false;
+            }
+        }
+    }, menuTrees, loadTree = function(){
+        $.get(ctx + "system/menu/roleMenuTreeData", function(data) {
+            menuTrees = $.fn.zTree.init($("#menuTrees"), setting, data); //.expandAll(true);
+        }, null, null, "正在加载，请稍后...");
+    };loadTree();
+
+    $("#form-role-add").validate({
+        rules:{
+            name:{
+                required:true,
+            },
+            reqkey:{
+                required:true,
+            },
+            reskey:{
+                required:true,
+            }
+        },
+        messages: {
+            "name": {
+                remote: "用户名存在"
+            },
+            "reqkey": {
+                remote: "请输入"
+            }
+        },
+        submitHandler:function(form){
+            add();
+        }
+    });
+    /*
+        function selectCheckeds() {
+            var menuIds = "";
+            var treeNodes = menuTrees.getCheckedNodes(true);
+            for (var i = 0; i < treeNodes.length; i++) {
+                if (0 == i) {
+                    menuIds = treeNodes[i].id;
+                } else {
+                    menuIds += ("," + treeNodes[i].id);
+                }
+            }
+            return menuIds;
+        }*/
+
+    function add() {
+        var channelMchId = $("input[name='channelMchId']").val();
+        var param = $("input[name='param']").val();
+        var remark = $("input[name='remark']").val();
+        var id = $("input[name='id']").val();
+        var state = $("input[name='state']").is(':checked') == true ? 1 : 0;
+        var mchId = $("#mchId option:selected").val();
+        var channelId = $("#channelId option:selected").val();
+        var channelName = $("#channelName option:selected").val();
+        $.ajax({
+            cache : true,
+            type : "POST",
+            url : ctx + "system/channel/editPayChannel",
+            data : {
+                "channelMchId": channelMchId,
+                "param": param,
+                "remark": remark,
+                "mchId": mchId,
+                "state": state,
+                "channelName": channelName,
+                "channelId": channelId,
+				"id":id
+            },
+            async : false,
+            error : function(request) {
+                $.modal.alertError("系统错误");
+            },
+            success : function(data) {
+                $.operate.saveSuccess(data);
+            }
+        });
+    }
+</script>
+</body>
+</html>
