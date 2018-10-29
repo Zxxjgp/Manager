@@ -1,0 +1,116 @@
+08:49:23.249 [restartedMain] INFO  c.r.RuoYiApplication - [logStarting,50] - Starting RuoYiApplication on HSHY-394-PC with PID 8716 (D:\workspace\idea\hsjyhsdn\Manager\target\classes started by HSHY-394 in D:\workspace\idea\hsjyhsdn\Manager)
+08:49:23.258 [restartedMain] INFO  c.r.RuoYiApplication - [logStartupProfileInfo,663] - The following profiles are active: druid
+08:49:28.162 [restartedMain] INFO  o.a.s.c.e.EhCacheManager - [getCache,158] - Cache with name 'com.ruoyi.framework.shiro.realm.UserRealm.authorizationCache' does not yet exist.  Creating now.
+08:49:28.164 [restartedMain] INFO  o.a.s.c.e.EhCacheManager - [getCache,165] - Added EhCache named [com.ruoyi.framework.shiro.realm.UserRealm.authorizationCache]
+08:49:29.432 [restartedMain] INFO  o.a.s.c.e.EhCacheManager - [getCache,169] - Using existing EHCache named [loginRecordCache]
+08:49:30.922 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,180] - Initializing ProtocolHandler ["http-nio-8001"]
+08:49:30.936 [restartedMain] INFO  o.a.c.c.StandardService - [log,180] - Starting service [Tomcat]
+08:49:30.936 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,180] - Starting Servlet Engine: Apache Tomcat/8.5.31
+08:49:30.944 [localhost-startStop-1] INFO  o.a.c.c.AprLifecycleListener - [log,180] - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files (x86)\Java\jdk1.8.0_172\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\Java\jdk1.8.0_172\bin;C:\Program Files (x86)\Java\jdk1.8.0_172\jre\bin;D:\software\maven\apache-maven-3.5.4-bin\apache-maven-3.5.4\bin;C:\Program Files (x86)\MySQL\MySQL Utilities 1.6\;D:\software\node\;D:\software\git\Git\cmd;D:\software\tomcat\apache-tomcat-8.5.32-windows-x64\apache-tomcat-8.5.32\bin;D:\software\nginx\nginx-1.12.2\nginx-1.12.2;D:\software\svn\bin;C:\Users\HSHY-394\AppData\Local\Microsoft\WindowsApps;D:\software\node\node_global;;.]
+08:49:31.117 [localhost-startStop-1] INFO  o.a.c.c.C.[.[.[/] - [log,180] - Initializing Spring embedded WebApplicationContext
+08:49:31.887 [restartedMain] INFO  c.a.d.p.DruidDataSource - [init,930] - {dataSource-1} inited
+08:49:32.091 [restartedMain] INFO  o.q.i.StdSchedulerFactory - [instantiate,1208] - Using default implementation for ThreadExecutor
+08:49:32.105 [restartedMain] INFO  o.q.c.SchedulerSignalerImpl - [<init>,61] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+08:49:32.105 [restartedMain] INFO  o.q.c.QuartzScheduler - [<init>,229] - Quartz Scheduler v.2.3.0 created.
+08:49:32.112 [restartedMain] INFO  o.q.c.QuartzScheduler - [initialize,294] - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'RuoyiScheduler' with instanceId 'HSHY-394-PC1540169372092'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 20 threads.
+  Using job-store 'org.springframework.scheduling.quartz.LocalDataSourceJobStore' - which supports persistence. and is clustered.
+
+08:49:32.113 [restartedMain] INFO  o.q.i.StdSchedulerFactory - [instantiate,1362] - Quartz scheduler 'RuoyiScheduler' initialized from an externally provided properties instance.
+08:49:32.113 [restartedMain] INFO  o.q.i.StdSchedulerFactory - [instantiate,1366] - Quartz scheduler version: 2.3.0
+08:49:32.114 [restartedMain] INFO  o.q.c.QuartzScheduler - [setJobFactory,2287] - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@7f84c
+08:49:34.134 [restartedMain] INFO  s.d.s.w.PropertySourcedRequestMappingHandlerMapping - [initHandlerMethods,69] - Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+08:49:37.019 [restartedMain] INFO  s.d.s.w.p.DocumentationPluginsBootstrapper - [start,147] - Context refreshed
+08:49:37.123 [restartedMain] INFO  s.d.s.w.p.DocumentationPluginsBootstrapper - [start,150] - Found 1 custom documentation plugin(s)
+08:49:37.357 [restartedMain] INFO  s.d.s.w.s.ApiListingReferenceScanner - [scan,41] - Scanning for api listing references
+08:49:38.596 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,180] - Starting ProtocolHandler ["http-nio-8001"]
+08:49:38.663 [restartedMain] INFO  o.a.t.u.n.NioSelectorPool - [log,180] - Using a shared selector for servlet write/read
+08:49:38.716 [restartedMain] INFO  c.r.RuoYiApplication - [logStarted,59] - Started RuoYiApplication in 16.036 seconds (JVM running for 18.802)
+08:49:39.773 [Quartz Scheduler [RuoyiScheduler]] INFO  o.q.c.QuartzScheduler - [start,547] - Scheduler RuoyiScheduler_$_HSHY-394-PC1540169372092 started.
+08:49:45.571 [http-nio-8001-exec-30] INFO  o.a.t.u.h.p.Cookie - [log,180] - A cookie header was received [1536805423] that contained an invalid cookie. That cookie will be ignored.Note: further occurrences of this error will be logged at DEBUG level.
+08:49:45.575 [http-nio-8001-exec-30] INFO  o.a.c.c.C.[.[.[/] - [log,180] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+08:49:45.617 [http-nio-8001-exec-30] INFO  o.a.s.s.m.AbstractValidatingSessionManager - [enableSessionValidation,233] - Enabling session validation scheduler...
+08:49:45.636 [http-nio-8001-exec-30] INFO  o.a.s.c.e.EhCacheManager - [getCache,158] - Cache with name 'shiro-activeSessionCache' does not yet exist.  Creating now.
+08:49:45.636 [http-nio-8001-exec-29] INFO  o.a.s.c.e.EhCacheManager - [getCache,158] - Cache with name 'shiro-activeSessionCache' does not yet exist.  Creating now.
+08:49:45.637 [http-nio-8001-exec-30] INFO  o.a.s.c.e.EhCacheManager - [getCache,165] - Added EhCache named [shiro-activeSessionCache]
+08:49:46.620 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,86] - invalidation sessions...
+08:49:46.665 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,145] - Finished invalidation session. [1] sessions were stopped.
+08:49:52.541 [http-nio-8001-exec-2] INFO  sys-user - [log,41] - [127.0.0.1]本机地址 [admin][Error][密码输入错误1次，123456]
+09:11:53.501 [http-nio-8001-exec-26] INFO  sys-user - [log,41] - [127.0.0.1]本机地址 [admin][Error][密码输入错误1次，123456]
+09:13:56.177 [http-nio-8001-exec-22] INFO  sys-user - [log,41] - [127.0.0.1]本机地址 [admin][Success][登录成功]
+09:18:56.222 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,86] - invalidation sessions...
+09:18:56.224 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,145] - Finished invalidation session. No sessions were stopped.
+09:18:56.224 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,86] - invalidation sessions...
+09:18:56.226 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,145] - Finished invalidation session. No sessions were stopped.
+09:19:46.538 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,86] - invalidation sessions...
+09:19:46.540 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,145] - Finished invalidation session. No sessions were stopped.
+09:19:52.694 [http-nio-8001-exec-23] INFO  sys-user - [log,41] - [127.0.0.1]本机地址 [admin][Logout][退出成功]
+09:20:06.770 [http-nio-8001-exec-16] INFO  sys-user - [log,41] - [127.0.0.1]本机地址 [admin][Success][登录成功]
+09:20:47.210 [http-nio-8001-exec-15] INFO  sys-user - [log,41] - [127.0.0.1]本机地址 [admin][Logout][退出成功]
+09:29:46.548 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,86] - invalidation sessions...
+09:29:46.548 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,145] - Finished invalidation session. No sessions were stopped.
+09:39:46.538 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,86] - invalidation sessions...
+09:39:46.541 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,145] - Finished invalidation session. No sessions were stopped.
+09:49:46.540 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,86] - invalidation sessions...
+09:49:46.541 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,145] - Finished invalidation session. No sessions were stopped.
+09:59:46.539 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,86] - invalidation sessions...
+09:59:46.540 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,145] - Finished invalidation session. No sessions were stopped.
+10:09:46.540 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,86] - invalidation sessions...
+10:09:46.542 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,145] - Finished invalidation session. No sessions were stopped.
+10:19:46.538 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,86] - invalidation sessions...
+10:19:46.540 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,145] - Finished invalidation session. No sessions were stopped.
+10:29:46.539 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,86] - invalidation sessions...
+10:29:46.541 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,145] - Finished invalidation session. No sessions were stopped.
+10:39:46.539 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,86] - invalidation sessions...
+10:39:46.541 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,145] - Finished invalidation session. No sessions were stopped.
+10:41:56.984 [http-nio-8001-exec-3] INFO  sys-user - [log,41] - [127.0.0.1]本机地址 [admin][Success][登录成功]
+10:49:46.539 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,86] - invalidation sessions...
+10:49:46.542 [pool-2-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,145] - Finished invalidation session. No sessions were stopped.
+10:51:01.377 [restartedMain] INFO  c.r.RuoYiApplication - [logStarting,50] - Starting RuoYiApplication on HSHY-394-PC with PID 2532 (D:\workspace\idea\hsjyhsdn\Manager\target\classes started by HSHY-394 in D:\workspace\idea\hsjyhsdn\Manager)
+10:51:01.377 [restartedMain] INFO  c.r.RuoYiApplication - [logStartupProfileInfo,663] - The following profiles are active: druid
+10:51:03.964 [restartedMain] INFO  o.a.s.c.e.EhCacheManager - [getCache,158] - Cache with name 'com.ruoyi.framework.shiro.realm.UserRealm.authorizationCache' does not yet exist.  Creating now.
+10:51:03.964 [restartedMain] INFO  o.a.s.c.e.EhCacheManager - [getCache,165] - Added EhCache named [com.ruoyi.framework.shiro.realm.UserRealm.authorizationCache]
+10:51:04.884 [restartedMain] INFO  o.a.s.c.e.EhCacheManager - [getCache,169] - Using existing EHCache named [loginRecordCache]
+10:51:05.852 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,180] - Initializing ProtocolHandler ["http-nio-8001"]
+10:51:05.868 [restartedMain] INFO  o.a.c.c.StandardService - [log,180] - Starting service [Tomcat]
+10:51:05.868 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,180] - Starting Servlet Engine: Apache Tomcat/8.5.31
+10:51:05.868 [localhost-startStop-1] INFO  o.a.c.c.AprLifecycleListener - [log,180] - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files (x86)\Java\jdk1.8.0_172\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\Java\jdk1.8.0_172\bin;C:\Program Files (x86)\Java\jdk1.8.0_172\jre\bin;D:\software\maven\apache-maven-3.5.4-bin\apache-maven-3.5.4\bin;C:\Program Files (x86)\MySQL\MySQL Utilities 1.6\;D:\software\node\;D:\software\git\Git\cmd;D:\software\tomcat\apache-tomcat-8.5.32-windows-x64\apache-tomcat-8.5.32\bin;D:\software\nginx\nginx-1.12.2\nginx-1.12.2;D:\software\svn\bin;C:\Users\HSHY-394\AppData\Local\Microsoft\WindowsApps;D:\software\node\node_global;;.]
+10:51:05.993 [localhost-startStop-1] INFO  o.a.c.c.C.[.[.[/] - [log,180] - Initializing Spring embedded WebApplicationContext
+10:51:06.557 [restartedMain] INFO  c.a.d.p.DruidDataSource - [init,930] - {dataSource-1} inited
+10:51:06.719 [restartedMain] INFO  o.q.i.StdSchedulerFactory - [instantiate,1208] - Using default implementation for ThreadExecutor
+10:51:06.742 [restartedMain] INFO  o.q.c.SchedulerSignalerImpl - [<init>,61] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+10:51:06.743 [restartedMain] INFO  o.q.c.QuartzScheduler - [<init>,229] - Quartz Scheduler v.2.3.0 created.
+10:51:06.743 [restartedMain] INFO  o.q.c.QuartzScheduler - [initialize,294] - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'RuoyiScheduler' with instanceId 'HSHY-394-PC1540176666728'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 20 threads.
+  Using job-store 'org.springframework.scheduling.quartz.LocalDataSourceJobStore' - which supports persistence. and is clustered.
+
+10:51:06.743 [restartedMain] INFO  o.q.i.StdSchedulerFactory - [instantiate,1362] - Quartz scheduler 'RuoyiScheduler' initialized from an externally provided properties instance.
+10:51:06.743 [restartedMain] INFO  o.q.i.StdSchedulerFactory - [instantiate,1366] - Quartz scheduler version: 2.3.0
+10:51:06.743 [restartedMain] INFO  o.q.c.QuartzScheduler - [setJobFactory,2287] - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@48bfee
+10:51:08.406 [restartedMain] INFO  s.d.s.w.PropertySourcedRequestMappingHandlerMapping - [initHandlerMethods,69] - Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+10:51:10.281 [restartedMain] INFO  s.d.s.w.p.DocumentationPluginsBootstrapper - [start,147] - Context refreshed
+10:51:10.297 [restartedMain] INFO  s.d.s.w.p.DocumentationPluginsBootstrapper - [start,150] - Found 1 custom documentation plugin(s)
+10:51:10.390 [restartedMain] INFO  s.d.s.w.s.ApiListingReferenceScanner - [scan,41] - Scanning for api listing references
+10:51:10.574 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,180] - Starting ProtocolHandler ["http-nio-8001"]
+10:51:10.589 [restartedMain] INFO  o.a.t.u.n.NioSelectorPool - [log,180] - Using a shared selector for servlet write/read
+10:51:10.605 [restartedMain] INFO  c.r.RuoYiApplication - [logStarted,59] - Started RuoYiApplication in 9.655 seconds (JVM running for 10.784)
+10:51:11.588 [Quartz Scheduler [RuoyiScheduler]] INFO  o.q.c.QuartzScheduler - [start,547] - Scheduler RuoyiScheduler_$_HSHY-394-PC1540176666728 started.
+10:52:30.025 [http-nio-8001-exec-2] INFO  o.a.t.u.h.p.Cookie - [log,180] - A cookie header was received [1536805423; JSESSIONID=4f6a2d4a-af30-4dc7-8f3b-99f61eea457f] that contained an invalid cookie. That cookie will be ignored.Note: further occurrences of this error will be logged at DEBUG level.
+10:52:30.033 [http-nio-8001-exec-2] INFO  o.a.c.c.C.[.[.[/] - [log,180] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+10:52:30.078 [http-nio-8001-exec-2] INFO  o.a.s.s.m.AbstractValidatingSessionManager - [enableSessionValidation,233] - Enabling session validation scheduler...
+10:52:30.082 [http-nio-8001-exec-2] INFO  o.a.s.c.e.EhCacheManager - [getCache,158] - Cache with name 'shiro-activeSessionCache' does not yet exist.  Creating now.
+10:52:30.083 [http-nio-8001-exec-2] INFO  o.a.s.c.e.EhCacheManager - [getCache,165] - Added EhCache named [shiro-activeSessionCache]
+10:52:31.082 [pool-1-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,86] - invalidation sessions...
+10:52:31.088 [pool-1-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,145] - Finished invalidation session. No sessions were stopped.
+11:02:31.083 [pool-1-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,86] - invalidation sessions...
+11:02:31.084 [pool-1-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,145] - Finished invalidation session. No sessions were stopped.
+11:12:31.082 [pool-1-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,86] - invalidation sessions...
+11:12:31.106 [pool-1-thread-1] INFO  c.r.f.s.w.s.OnlineWebSessionManager - [validateSessions,145] - Finished invalidation session. [1] sessions were stopped.
